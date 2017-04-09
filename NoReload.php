@@ -1,6 +1,6 @@
 <?php
 
-require_once("./Test.php");
+require_once("Test.php");
 
 class NoReload
 {

@@ -13,6 +13,8 @@ class Reload
 		$this->_serv = new Swoole\Server("127.0.0.1", 9501);
 		$this->_serv->set([
 			'worker_num' => 1,
+            'daemonize' => true,
+            'log_file' => __DIR__ . '/server.log',
 		]);
 		$this->_serv->on('Receive', [$this, 'onReceive']);
 		$this->_serv->on('WorkerStart', [$this, 'onWorkerStart']);
@@ -26,7 +28,7 @@ class Reload
 	}
 	public function onWorkerStart($serv, $workerId)
 	{
-		require_once("./Test.php");
+		require_once("Test.php");
 		$this->_test = new Test;
 	}
 	public function onReceive($serv, $fd, $fromId, $data)
