@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <textarea name="content" id="content" cols="30" rows="10"></textarea>
+    <button onclick="send();">发送</button>
+</div>
+<div class="list" style="border: solid 1px #ccc; margin-top: 10px;">
+    <ul id="ul">
+    </ul>
+</div>
+
+<script>
+var ws = new WebSocket('ws://127.0.0.1:9501');
+ws.onopen = function(event) {
+    ws.send('This is websocket client.');
+};
+ws.onmessage = function(event) {
+    var data = event.data;
+    var ul = document.getElementById('ul');
+    var li = document.createElement('li');
+    li.innerHTML = data;
+    ul.appendChild(li);
+};
+ws.onclose = function(event) {
+    console.log('Client has closed.\n', event);
+};
+
+function send() {
+    var obj = document.getElementById('content');
+    var content = obj.value;
+    ws.send(content);
+}
+</script>
+</body>
+</html>
