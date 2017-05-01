@@ -8,7 +8,7 @@ class WebSocketServer
     {
         $this->_serv = new swoole_websocket_server("127.0.0.1", 9501);
         $this->_serv->set([
-            'worker_num' => 2,
+            'worker_num' => 1,
         ]);
         $this->_serv->on('open', [$this, 'onOpen']);
         $this->_serv->on('message', [$this, 'onMessage']);
